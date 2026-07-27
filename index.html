@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Xinyi Xie — Chemistry researcher at Tianjin University.">
+  <title>Xinyi Xie — Academic Homepage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <script>document.documentElement.dataset.theme=localStorage.getItem('theme')||'dark';</script>
+  <link rel="stylesheet" href="assets/home.css">
+</head>
+<body class="home-xinyi">
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <header class="topbar" id="topbar">
+    <div class="topbar-inner">
+      <a class="identity" href="#top" aria-label="Xinyi Xie home">
+        <span class="identity-mark">谢</span>
+        <span class="identity-copy"><span class="identity-name">Xinyi Xie</span><span class="identity-label">Academic Homepage</span></span>
+      </a>
+      <p class="top-meta">TIANJIN UNIVERSITY · 2026</p>
+      <div class="controls">
+        <button class="control" id="langToggle" type="button" aria-label="Switch language">中</button>
+        <button class="control" id="themeToggle" type="button" aria-label="Switch theme"><span id="themeIcon">☀</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="home-main" id="top">
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow" data-i18n="eyebrow">Academic Profile · Chemistry</p>
+          <h1 data-i18n="name">谢欣怡</h1>
+          <p class="english-name">XINYI XIE</p>
+          <p class="role" data-i18n="role">天津大学 · 化学硕士研究生</p>
+          <p class="introduction" data-i18n="intro">我是天津大学化学硕士研究生，主要研究有机半导体单分子层晶体的可控制备与晶圆级集成，关注从生长机制到高性能 OFET 器件的完整链路，并探索 AI 在材料研究中的应用。</p>
+          <a class="profile-link" href="profile.html"><span data-i18n="profile_link">查看完整学术档案</span><span class="profile-arrow">→</span></a>
+        </div>
+        <div class="hero-mark" aria-hidden="true">
+          <span class="mark-ring"></span>
+          <span class="mark-character">谢</span>
+          <span class="mark-caption">MOLECULAR CRYSTALS<br>WAFER-SCALE DEVICES</span>
+        </div>
+      </div>
+
+      <div class="facts" aria-label="Profile highlights">
+        <article class="fact"><span class="fact-label" data-i18n="fact1_label">研究方向</span><strong class="fact-value" data-i18n="fact1_value">有机半导体材料</strong></article>
+        <article class="fact"><span class="fact-label" data-i18n="fact2_label">研究方法</span><strong class="fact-value" data-i18n="fact2_value">PVT · 真空蒸镀</strong></article>
+        <article class="fact"><span class="fact-label" data-i18n="fact3_label">研究亮点</span><strong class="fact-value" data-i18n="fact3_value">4 英寸晶圆级 MMC</strong></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="home-footer"><span>© 2026 XINYI XIE</span><span>sinyi.xie@gmail.com</span></footer>
+
+  <script>
+    window.HOME_COPY = {
+      en: {
+        title:'Xinyi Xie — Academic Homepage', eyebrow:'Academic Profile · Chemistry', name:'Xinyi Xie',
+        role:'Tianjin University · M.S. Candidate in Chemistry',
+        intro:'I am an M.S. candidate in Chemistry at Tianjin University, researching the controlled growth and wafer-scale integration of organic semiconductor monolayer molecular crystals. My work connects growth mechanisms with high-performance OFET devices and explores the use of AI in materials research.',
+        profile_link:'View Complete Academic Profile', fact1_label:'Research Focus', fact1_value:'Organic Semiconductor Materials', fact2_label:'Methods', fact2_value:'PVT · Vacuum Evaporation', fact3_label:'Research Highlight', fact3_value:'4-inch Wafer-Scale MMCs'
+      },
+      zh: {
+        title:'谢欣怡 — 学术主页', eyebrow:'学术档案 · 化学', name:'谢欣怡',
+        role:'天津大学 · 化学硕士研究生',
+        intro:'我是天津大学化学硕士研究生，主要研究有机半导体单分子层晶体的可控制备与晶圆级集成，关注从生长机制到高性能 OFET 器件的完整链路，并探索 AI 在材料研究中的应用。',
+        profile_link:'查看完整学术档案', fact1_label:'研究方向', fact1_value:'有机半导体材料', fact2_label:'研究方法', fact2_value:'PVT · 真空蒸镀', fact3_label:'研究亮点', fact3_value:'4 英寸晶圆级 MMC'
+      }
+    };
+  </script>
+  <script src="assets/home.js"></script>
+</body>
+</html>
