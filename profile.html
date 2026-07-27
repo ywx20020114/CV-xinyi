@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>(()=>{const hour=new Date().getHours();document.documentElement.dataset.theme=hour>=7&&hour<19?'light':'dark';})();</script>
 <title data-i18n="title">谢欣怡 — 学术主页</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -622,7 +623,13 @@ const i18n = {
 };
 
 let currentLang = localStorage.getItem('lang') || 'en';
-let currentTheme = localStorage.getItem('theme') || 'dark';
+let currentTheme = getTimeTheme();
+let themeTimer;
+
+function getTimeTheme(date = new Date()) {
+  const hour = date.getHours();
+  return hour >= 7 && hour < 19 ? 'light' : 'dark';
+}
 
 function applyLang(lang) {
   currentLang = lang;
@@ -639,7 +646,6 @@ function applyLang(lang) {
 
 function applyTheme(theme) {
   currentTheme = theme;
-  localStorage.setItem('theme', theme);
   document.documentElement.setAttribute('data-theme', theme);
   const icon = document.getElementById('themeIcon');
   if (icon) {
@@ -647,11 +653,28 @@ function applyTheme(theme) {
   }
 }
 
+function scheduleTimeTheme() {
+  clearTimeout(themeTimer);
+  applyTheme(getTimeTheme());
+  const now = new Date();
+  const nextChange = new Date(now);
+  if (now.getHours() < 7) nextChange.setHours(7, 0, 0, 0);
+  else if (now.getHours() < 19) nextChange.setHours(19, 0, 0, 0);
+  else {
+    nextChange.setDate(nextChange.getDate() + 1);
+    nextChange.setHours(7, 0, 0, 0);
+  }
+  themeTimer = window.setTimeout(scheduleTimeTheme, nextChange - now + 1000);
+}
+
 document.getElementById('langToggle').addEventListener('click', () => applyLang(currentLang === 'zh' ? 'en' : 'zh'));
 document.getElementById('themeToggle').addEventListener('click', () => applyTheme(currentTheme === 'dark' ? 'light' : 'dark'));
 
 applyLang(currentLang);
-applyTheme(currentTheme);
+scheduleTimeTheme();
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) scheduleTimeTheme();
+});
 
 // ===== NAV =====
 function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }

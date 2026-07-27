@@ -1,7 +1,8 @@
 (() => {
   const copy = window.HOME_COPY || {};
   let lang = localStorage.getItem('lang') || 'en';
-  let theme = localStorage.getItem('theme') || 'dark';
+  let theme = getTimeTheme();
+  let themeTimer;
   const langToggle = document.getElementById('langToggle');
   const themeToggle = document.getElementById('themeToggle');
   const themeIcon = document.getElementById('themeIcon');
@@ -19,17 +20,38 @@
     langToggle.textContent = next === 'zh' ? 'EN' : '中';
   }
 
+  function getTimeTheme(date = new Date()) {
+    const hour = date.getHours();
+    return hour >= 7 && hour < 19 ? 'light' : 'dark';
+  }
+
   function applyTheme(next) {
     theme = next;
-    localStorage.setItem('theme', next);
     document.documentElement.dataset.theme = next;
     themeIcon.textContent = next === 'dark' ? '☀' : '☾';
+  }
+
+  function scheduleTimeTheme() {
+    clearTimeout(themeTimer);
+    applyTheme(getTimeTheme());
+    const now = new Date();
+    const nextChange = new Date(now);
+    if (now.getHours() < 7) nextChange.setHours(7, 0, 0, 0);
+    else if (now.getHours() < 19) nextChange.setHours(19, 0, 0, 0);
+    else {
+      nextChange.setDate(nextChange.getDate() + 1);
+      nextChange.setHours(7, 0, 0, 0);
+    }
+    themeTimer = window.setTimeout(scheduleTimeTheme, nextChange - now + 1000);
   }
 
   langToggle.addEventListener('click', () => applyLanguage(lang === 'zh' ? 'en' : 'zh'));
   themeToggle.addEventListener('click', () => applyTheme(theme === 'dark' ? 'light' : 'dark'));
   applyLanguage(lang);
-  applyTheme(theme);
+  scheduleTimeTheme();
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) scheduleTimeTheme();
+  });
 
   const topbar = document.getElementById('topbar');
   window.addEventListener('scroll', () => topbar.classList.toggle('scrolled', window.scrollY > 12), { passive: true });
